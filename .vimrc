@@ -1,90 +1,221 @@
-version 7.3
-runtime bundle/vim-pathogen/autoload/pathogen.vim
+set nocompatible
+filetype on
+filetype off
+
+set rtp+=$HOME/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+"Bundle 'wesgibbs/vim-irblack'
+"Bundle 'kml/vim-irblack-plus'
+Bundle 'kongo2002/fsharp-vim'
+Bundle 'OrangeT/vim-csharp'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-surround'
+Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/neosnippet'
+Bundle 'honza/vim-snippets'
+"Bundle 'klen/python-mode'
+"Bundle 'python.vim'
+"Bundle 'pythoncomplete'
+"Bundle 'Townk/vim-autoclose'
+Bundle 'jnwhiteh/vim-golang'
+Bundle 'Blackrush/vim-gocode'
 
 let g:netrw_list_hide = "\\.swp$,\\~$"
 let g:netrw_hide = 1
-syntax on
 
-set undodir=~/.vim/.undo/
-set nocompatible
-set encoding=utf-8
-set foldlevelstart=99
-set background=dark
-set number
-set hidden
-set autoread
-set backup
-set backspace=indent,eol,start
-set incsearch
-set ignorecase
-set infercase
-set laststatus=2
-set magic
+filetype plugin indent on
 set mouse=a
 set mousehide
-set mousemodel=popup_setpos
-set ruler
-set shiftround
-set shiftwidth=4
-set showcmd
-set showmatch
+"autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+set encoding=utf-8
+setglobal fileencoding=utf-8
+set fileencodings=ucs-bom,utf-8,utf-161e,cp1252,iso-8959-15
+set autowrite
+set shortmess+=filmnrxoOtT
+set hidden
+set spell
+set backup
+set backupcopy
+set undodir=$TEMP
+set undofile
+set undolevels=1000
+set undoreload=10000
 set showmode
+set cursorline
+highlight clear SignColumn
+set ruler
+set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) 
+set showcmd
+set laststatus=2
+set statusline=%<%f\  
+set statusline+=%w%h%m%r 
+set statusline+=%{fugitive#statusline()} 
+set statusline+=\ [%{&ff}/%Y]            
+set statusline+=\ [%{getcwd()}]          
+set statusline+=%=%-14.(%l,%c%V%)\ %p%%  
+set backspace=indent,eol,start
+set linespace=0
+set number
+set showmatch
+set incsearch
+set nohlsearch
+set ignorecase
+set infercase
+set magic
 set smartcase
-set smartindent
-set smarttab
-set tabstop=4
+set wildmenu
+set wildignore+=*~,*.o,*.exe,*.bak,*.obj
+set wildmode=list:longest,full
+set whichwrap=b,s,h,l,<,>,[,]
+set scrolljump=5
+set scrolloff=3
 set nowrap
-set wildignore=*.o,*.obj,*.bak,*.exe,*~
-set backupcopy=yes
-set completeopt=longest,menuone,menu
+set autoindent
+set shiftwidth=4
+set shiftround
+set expandtab
+set tabstop=4
+set softtabstop=4
 
-map <leader>n :NERDTreeToggle<CR>
+let mapleader = ','
 
-let g:neocomplcache_enable_smart_case = 1 
-let g:neocomplcache_enable_auto_select = 0 
+nnoremap Y y$
+command! -bang -nargs=* -complete=file E e<bang> <args>
+command! -bang -nargs=* -complete=file W w<bang> <args>
+command! -bang -nargs=* -complete=file Wq wq<bang> <args>
+command! -bang -nargs=* -complete=file WQ wq<bang> <args>
+command! -bang Wa wa<bang>
+command! -bang WA wa<bang>
+command! -bang Q q<bang>
+command! -bang QA qa<bang>
+command! -bang Qa qa<bang>
+
+cmap cwd lcd %:p:h
+cmap cd. lcd %:p:h
+vnoremap < <gv
+vnoremap > >gv
+
+if has("autocmd") && exists("+omnifunc")
+    autocmd Filetype *
+	\if &omnifunc == "" |
+	\setlocal omnifunc=syntaxcomplete#Complete |
+	\endif
+endif
+
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+set completeopt=menu,preview,longest
+
+map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+map <leader>e :NERDTreeFind<CR>
+nmap <leader>nt :NERDTreeFind<CR>
+
+let NERDTreeShowBookmarks=1
+let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '\.\.$', '\.$', '\~$']
+let NERDTreeChDirMode=0
+let NERDTreeQuitOnOpen=1
+let NERDTreeMouseMode=2
+let NERDTreeShowHidden=1
+let NERDTreeKeepTreeInNewTab=1
+let g:nerdtree_tabs_open_on_gui_startup=0
+
+let g:ctrlp_working_path_mode = 'ra'
+nnoremap <silent> <D-t> :CtrlP<CR>
+nnoremap <silent> <D-r> :CtrlPMRU<CR>
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$\|\~$' }
+
+"let g:ctrlp_user_command = {
+"\ 'types': {
+    "\ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+    "\ 2: ['.hg', 'hg --cwd %s locate -I .'],
+"\ },
+"\ 'fallback': 'dir %s /-n /b /s /a-d'
+"\ }
+
+let g:acp_enableAtStartup = 0
+let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*' 
+let g:neocomplcache_enable_auto_delimiter = 1
+let g:neocomplcache_max_list = 15
+let g:neocomplcache_force_overwrite_completefunc = 1
+"let g:neocomplcache_enable_cursor_hold_i = 1
+let g:neocomplecache_enable_insert_char_pre = 1
 
-nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
+let g:neocomplcache_dictionary_filetype_lists = {
+	\ 'default' : '',
+	\ 'vimshell' : $HOME.'/.vimshell_hist',
+	\ }
 
-inoremap <expr><C-g> neocomplcache#undo_completion() 
-inoremap <expr><C-l> neocomplcache#complete_common_string() 
+let g:neocomplcache_keyword_patterns = {}
+let g:neocomplcache_keyword_patterns._ = '\h\w*'
 
-imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><CR> neocomplcache#smart_close_popup() . "\<CR>" 
-inoremap <expr><C-h> neocomplcache#smart_close_popup() . "\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup() . "\<C-h>"
+"imap <C-k> <Plug>(neosnippet_expand_or_jump)
+"smap <C-k> <Plug>(neosnippet_expand_or_jump)
+
+inoremap <expr><Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+"inoremap <expr><Left> pumvisible() ? neocomplcache#close_popup() : "\<Left>"
+"inoremap <expr><Right> pumvisible() ? neocomplcache#close_popup() : "\<Right>"
+"inoremap <expr><Up> pumvisible() ? neocomplcache#close_popup() : "\<Up>"
+"inoremap <expr><Down> pumvisible() ? neocomplcache#close_popup() : "\<Down>"
+inoremap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr><Up>  pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+inoremap <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+inoremap <expr><C-g> neocomplcache#undo_completion()
+inoremap <expr><C-l> neocomplcache#complete_common_string()
+"inoremap <expr><CR> neocomplcache#complete_common_string()
+"inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+inoremap <expr><S-CR> pumvisible() ? (neocomplcache#smart_close_popup()."\<CR>") : "\<CR>"
+inoremap <expr><CR> pumvisible() ?  neocomplcache#smart_close_popup() : "\<CR>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y> neocomplcache#close_popup()
-inoremap <expr><C-e> neocomplcache#cancel_popup()
 
-nnoremap <C-Tab> <ESC>:bn<CR>
-inoremap <C-Tab> <ESC>:bn<CR>
+imap <expr><CR> neosnippet#expandable_or_jumpable() ?
+	\ "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
+	\ neocomplcache#smart_close_popup() : "\<CR>")
 
-nmap <leader>a <Esc>:Ack!
+imap <expr><TAB> neosnippet#jumpable() ?
+ \ "\<Plug>(neosnippet_expand_or_jump)"
+ \: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#jumpable() ?
+ \ "\<Plug>(neosnippet_expand_or_jump)"
+ \: "\<TAB>"
 
-let g:Powerline_symbols='compatible'
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
-let g:ctrlp_working_path_mode=0
-let g:neocomplcache_enable_at_startup=1
-let g:neocomplcache_cursor_hold_i_time=1
-let g:neocomplcache_auto_completion_start_length=3
+let g:neocomplcache_omni_patterns = {}
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.go = '\h\w*'
 
-call pathogen#infect()
-call pathogen#helptags()
+autocmd BufWritePre *.go :silent Fmt
 
-filetype on
-filetype plugin indent on
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+let g:neosnippet#enable_snipmate_compatibility = 1
 
-au FileType python setlocal omnifunc=pythoncomplete#Complete
-au FileType python setlocal omnifunc=pythoncomplete#Complete
-au FileType xml setlocal omnifunc=xmlcomplete#Complete
-au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-au FileType css setlocal omnifunc=csscomplete#CompleteCSS
-au FileType php setlocal omnifunc=phpcomplete#CompletePHP
-au FileType ruby setlocal omnifunc=rubycomplete#Complete 
-au FileType c setlocal omnifunc=ccomplete#Complete
+if has('conceal')
+    set conceallevel=2 concealcursor=i
+endif
+
+set completeopt-=preview
 
 au FileType cs compiler msbuild
 au FileType cs let g:ctags_command = "ctags -R --exclude=\"bin\" --exclude=\"obj\" --extra=+fq --fields=+ianmzS --c\\#-kinds=cimnp ."
@@ -93,6 +224,9 @@ au FileType snippet iunmap <expr><TAB>
 au BufNewFile,BufRead *.xaml set filetype=xml
 au BufNewFile,BufRead *.proj set filetype=xml 
 au BufNewFile,BufRead *.proj compiler msbuild
+
+au WinLeave * setlocal nocursorline
+au WinEnter * setlocal cursorline
 
 au WinLeave * setlocal nocursorline
 au WinEnter * setlocal cursorline
