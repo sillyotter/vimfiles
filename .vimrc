@@ -41,7 +41,7 @@ set shortmess+=filmnrxoOtT
 set hidden
 set spell
 set backup
-set backupcopy
+set backupcopy=yes
 set undodir=$TEMP
 set undofile
 set undolevels=1000
