@@ -33,7 +33,7 @@ let g:netrw_hide = 1
 filetype plugin indent on
 set mouse=a
 set mousehide
-"autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 set encoding=utf-8
 setglobal fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,utf-161e,cp1252,iso-8959-15
@@ -127,7 +127,7 @@ let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 
-let g:ctrlp_working_path_mode = 0
+let g:ctrlp_working_path_mode = 'ra'
 nnoremap <silent> <D-t> :CtrlP<CR>
 nnoremap <silent> <D-r> :CtrlPMRU<CR>
 let g:ctrlp_custom_ignore = {
@@ -227,9 +227,6 @@ au FileType snippet iunmap <expr><TAB>
 au BufNewFile,BufRead *.xaml set filetype=xml
 au BufNewFile,BufRead *.proj set filetype=xml 
 au BufNewFile,BufRead *.proj compiler msbuild
-
-au WinLeave * setlocal nocursorline
-au WinEnter * setlocal cursorline
 
 au WinLeave * setlocal nocursorline
 au WinEnter * setlocal cursorline
