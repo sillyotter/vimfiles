@@ -13,6 +13,7 @@ Bundle 'OrangeT/vim-csharp'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/syntastic'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
@@ -56,6 +57,8 @@ set laststatus=2
 set statusline=%<%f\  
 set statusline+=%w%h%m%r 
 set statusline+=%{fugitive#statusline()} 
+"set statusline+=%{SyntasticStatuslineFlag()}
+set statusline=%<%f\  
 set statusline+=\ [%{&ff}/%Y]            
 set statusline+=\ [%{getcwd()}]          
 set statusline+=%=%-14.(%l,%c%V%)\ %p%%  
@@ -70,7 +73,7 @@ set infercase
 set magic
 set smartcase
 set wildmenu
-set wildignore+=*~,*.o,*.exe,*.bak,*.obj
+set wildignore+=*~,*.o,*.exe,*.bak,*.obj,*.a
 set wildmode=list:longest,full
 set whichwrap=b,s,h,l,<,>,[,]
 set scrolljump=5
@@ -124,7 +127,7 @@ let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 
-let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_working_path_mode = 0
 nnoremap <silent> <D-t> :CtrlP<CR>
 nnoremap <silent> <D-r> :CtrlPMRU<CR>
 let g:ctrlp_custom_ignore = {
@@ -161,7 +164,7 @@ let g:neocomplcache_keyword_patterns._ = '\h\w*'
 "imap <C-k> <Plug>(neosnippet_expand_or_jump)
 "smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
-inoremap <expr><Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr><Esc> pumvisible() ? "\<C-e>\<Esc>" : "\<Esc>"
 "inoremap <expr><Left> pumvisible() ? neocomplcache#close_popup() : "\<Left>"
 "inoremap <expr><Right> pumvisible() ? neocomplcache#close_popup() : "\<Right>"
 "inoremap <expr><Up> pumvisible() ? neocomplcache#close_popup() : "\<Up>"
