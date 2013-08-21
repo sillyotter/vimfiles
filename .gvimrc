@@ -20,7 +20,9 @@ let g:solarized_italic=0    "default value is 1
 syntax enable
 set background=dark
 colorscheme solarized
-set guioptions-=Tmr
+set guioptions-=T
+set guioptions-=m
+set guioptions-=r
 set lines=40
 set columns=120
 
