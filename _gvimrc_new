@@ -1,5 +1,0 @@
-set guifont=Source_Code_Pro:h11:cANSI
-colorscheme ir_black
-set guioptions-=T
-set lines=40
-set columns=100
