@@ -15,9 +15,12 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
 Bundle 'kien/ctrlp.vim'
+"Bundle 'Shougo/vimproc.vim'
+"Bundle 'Shougo/unite.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'Shougo/neocomplcache'
+"Bundle 'Shougo/neocomplete'
 Bundle 'Shougo/neosnippet'
 Bundle 'honza/vim-snippets'
 "Bundle 'klen/python-mode'
@@ -26,6 +29,7 @@ Bundle 'honza/vim-snippets'
 "Bundle 'Townk/vim-autoclose'
 Bundle 'jnwhiteh/vim-golang'
 Bundle 'Blackrush/vim-gocode'
+Bundle 'bling/vim-airline'
 
 let g:netrw_list_hide = "\\.swp$,\\~$"
 let g:netrw_hide = 1
@@ -50,18 +54,18 @@ set undoreload=10000
 set showmode
 set cursorline
 highlight clear SignColumn
-set ruler
-set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) 
+"set ruler
+"set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
 set showcmd
 set laststatus=2
-set statusline=%<%f\  
-set statusline+=%w%h%m%r 
-set statusline+=%{fugitive#statusline()} 
+"set statusline=%<%f\
+"set statusline+=%w%h%m%r
+"set statusline+=%{fugitive#statusline()}
 "set statusline+=%{SyntasticStatuslineFlag()}
-set statusline=%<%f\  
-set statusline+=\ [%{&ff}/%Y]            
-set statusline+=\ [%{getcwd()}]          
-set statusline+=%=%-14.(%l,%c%V%)\ %p%%  
+"set statusline=%<%f\
+"set statusline+=\ [%{&ff}/%Y]
+"set statusline+=\ [%{getcwd()}]
+"set statusline+=%=%-14.(%l,%c%V%)\ %p%%
 set backspace=indent,eol,start
 set linespace=0
 set number
@@ -86,6 +90,12 @@ set expandtab
 set tabstop=4
 set softtabstop=4
 
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline#extensions#syntastic#enabled=1
+let g:airline#extensions#branch#enabled=1
+"let g:airline#extensions#branch#empty_message='None'
+
 let mapleader = ','
 
 nnoremap Y y$
@@ -106,9 +116,9 @@ vnoremap > >gv
 
 if has("autocmd") && exists("+omnifunc")
     autocmd Filetype *
-	\if &omnifunc == "" |
-	\setlocal omnifunc=syntaxcomplete#Complete |
-	\endif
+  \if &omnifunc == "" |
+  \setlocal omnifunc=syntaxcomplete#Complete |
+  \endif
 endif
 
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
@@ -225,19 +235,19 @@ au FileType cs let g:ctags_command = "ctags -R --exclude=\"bin\" --exclude=\"obj
 au FileType snippet iunmap <expr><TAB>
 
 au BufNewFile,BufRead *.xaml set filetype=xml
-au BufNewFile,BufRead *.proj set filetype=xml 
+au BufNewFile,BufRead *.proj set filetype=xml
 au BufNewFile,BufRead *.proj compiler msbuild
 
 au WinLeave * setlocal nocursorline
 au WinEnter * setlocal cursorline
 
 fun! OpenQFWindowIfErrorsPresent()
-	let qflist = getqflist()
-	if (len(qflist) > 0)
-		copen
-	else
-		cclose
-	endif
+  let qflist = getqflist()
+  if (len(qflist) > 0)
+    copen
+  else
+    cclose
+  endif
 endfunction
 
 au QuickFixCmdPost make call OpenQFWindowIfErrorsPresent()
@@ -259,5 +269,4 @@ function! UpdateModifiable()
   endif
 endfunction
 
-autocmd BufReadPost * call UpdateModifiable()
-
+"autocmd BufReadPost * call UpdateModifiable()
