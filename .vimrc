@@ -19,6 +19,8 @@ Bundle 'kien/ctrlp.vim'
 "Bundle 'Shougo/unite.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-dispatch'
+Bundle 'nosami/Omnisharp'
 Bundle 'Shougo/neocomplcache'
 "Bundle 'Shougo/neocomplete'
 Bundle 'Shougo/neosnippet'
@@ -217,7 +219,8 @@ let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.go = '\h\w*'
+let g:neocomplcache_omni_patterns.go = '.*'
+let g:neocomplcache_omni_patterns.cs = '.*'
 
 autocmd BufWritePre *.go :silent Fmt
 
