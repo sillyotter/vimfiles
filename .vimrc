@@ -8,9 +8,9 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 "Bundle 'wesgibbs/vim-irblack'
 "Bundle 'kml/vim-irblack-plus'
-Bundle 'kongo2002/fsharp-vim'
-Bundle 'OrangeT/vim-csharp'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'timrobinson/fsharp-vim'
+Bundle 'OrangeT/vim-csharp'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
@@ -33,6 +33,23 @@ Bundle 'jnwhiteh/vim-golang'
 Bundle 'Blackrush/vim-gocode'
 Bundle 'bling/vim-airline'
 
+"let g:solarized_termcolors=256
+let g:solarized_termtrans=0
+
+imap <ESC>OA <ESC>ki
+imap <ESC>OB <ESC>ji
+imap <ESC>OC <ESC>li
+imap <ESC>OD <ESC>hi
+
+set t_Co=256
+syntax enable
+set background=dark
+colorscheme solarized
+
+hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
+hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+
 let g:netrw_list_hide = "\\.swp$,\\~$"
 let g:netrw_hide = 1
 
@@ -46,7 +63,7 @@ set fileencodings=ucs-bom,utf-8,utf-161e,cp1252,iso-8959-15
 set autowrite
 set shortmess+=filmnrxoOtT
 set hidden
-set spell
+set nospell
 set backup
 set backupcopy=yes
 set undodir=$TEMP
@@ -271,5 +288,7 @@ function! UpdateModifiable()
     endif
   endif
 endfunction
+
+
 
 "autocmd BufReadPost * call UpdateModifiable()
